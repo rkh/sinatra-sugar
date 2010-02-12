@@ -3,18 +3,13 @@ require "monkey-lib"
 
 module Sinatra
 
-  CALLERS_TO_IGNORE = (class << Sinatra::Base; CALLERS_TO_IGNORE; end) unless defined? CALLERS_TO_IGNORE
-  Dir.chdir __FILE__.dirname.dirname do
-    Dir.glob("**/*.rb") { |file| CALLERS_TO_IGNORE << Regexp.new(Regexp.escape(file)) }
-  end
-
   # Basic Sinatra extension (mainly extending Sinatra's standard methods, like set or register).
   # Also it features a more advanced path guessing than Sinatra::Base.
   # Normally you do not have to register this module manually, as the other extensions will do so
   # if necessary.
   module Sugar
     module BaseMethods
-      ::Sinatra::Base.extend self
+      Base.extend self
 
       def callers_to_ignore
         class << Sinatra::Base
@@ -192,6 +187,7 @@ module Sinatra
 
   end
   
+  Base.ignore_caller
   register Sugar
   
 end
