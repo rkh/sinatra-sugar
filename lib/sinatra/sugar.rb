@@ -1,5 +1,5 @@
 require "sinatra/base"
-require "monkey-lib"
+require "monkey"
 
 module Sinatra
 
