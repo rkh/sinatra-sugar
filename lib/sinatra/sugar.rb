@@ -2,11 +2,6 @@ require "sinatra/base"
 require "monkey"
 
 module Sinatra
-
-  # Basic Sinatra extension (mainly extending Sinatra's standard methods, like set or register).
-  # Also it features a more advanced path guessing than Sinatra::Base.
-  # Normally you do not have to register this module manually, as the other extensions will do so
-  # if necessary.
   module Sugar
     module BaseMethods
       Base.extend self
@@ -67,7 +62,7 @@ module Sinatra
         self
       end
 
-      # More advacend register:
+      # More advanced register:
       # - If an exntesion is registered twice, the registered hook will only be called once.
       def register(*extensions, &block)
         extensions.reject! { |e| self.extensions.include? e }
