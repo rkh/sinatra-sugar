@@ -7,9 +7,11 @@ SPEC = Gem::Specification.new do |s|
 
   # BigBand depedencies
   s.add_dependency "monkey-lib", s.version
+  s.add_development_dependency "sinatra-test-helper", s.version
 
   # External dependencies
   s.add_dependency "sinatra", ">= 0.9.4"
+  s.add_development_dependency "rspec", ">= 1.3.0"
 
   # Those should be about the same in any BigBand extension.
   s.authors          = ["Konstantin Haase"]
