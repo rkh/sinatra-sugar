@@ -38,9 +38,9 @@ Ability to extend command line options
 
 Example:
 
-  require "sinatra"
-  require "sinatra/sugar"
+    require "sinatra"
+    require "sinatra/sugar"
   
-  configure do
-    run_option_parser.on("-i") { puts "yes, -i is a nice option" }
-  end
+    configure do
+      run_option_parser.on("-i") { puts "yes, -i is a nice option" }
+    end
