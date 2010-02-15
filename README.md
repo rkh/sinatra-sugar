@@ -18,13 +18,13 @@ More advanced set
 - Adds set\_#{key} and set_value hooks to set.
 - Merges the old value with the new one, if both are hashes:
 
-    set :haml, :format => :html5, :escape_html => true
-    set :haml, :excape_html => false
-    haml # => { :format => :html5, :escape_html => false }
+      set :haml, :format => :html5, :escape_html => true
+      set :haml, :excape_html => false
+      haml # => { :format => :html5, :escape_html => false }
     
 - Allowes passing a block:
 
-    set(:foo) { Time.now }
+      set(:foo) { Time.now }
     
 - Defines a helper to access #{key} and #{key}? unless a helper/method with that name already exists.
 
