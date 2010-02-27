@@ -25,8 +25,6 @@ More advanced set
 - Allowes passing a block:
 
         set(:foo) { Time.now }
-    
-- Defines a helper to access #{key} and #{key}? unless a helper/method with that name already exists.
 
 More advanced register
 ----------------------

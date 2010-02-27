@@ -36,7 +36,6 @@ module Sinatra
       #     haml # => { :format => :html5, :escape_html => false }
       # - Allowes passing a block:
       #     set(:foo) { Time.now }
-      # - Defines a helper to access #{key} and #{key}? unless a helper/method with that name already exists.
       def set(key, value = self, &block)
         # FIXME: refactor, refactor, refactor
         if block_given?
@@ -47,11 +46,6 @@ module Sinatra
         old_value = (send(symbolized) if symbolized and respond_to? symbolized)
         value = old_value.merge value if value.is_a? Hash and old_value.is_a? Hash
         super(key, value)
-        if symbolized
-          method_names = instance_methods.map { |m| m.to_s }
-          define_method(key)       { self.class.send(key)       } unless method_names.include? key.to_s
-          define_method("#{key}?") { self.class.send("#{key}?") } unless method_names.include? "#{key}?"
-        end
         # HACK: Sinatra::Base.set uses recursion and in the final step value always
         # is a Proc. Also, if value is a Proc no step ever follows. I abuse this to
         # invoke the hooks only once per set.
