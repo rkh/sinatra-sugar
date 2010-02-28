@@ -165,9 +165,11 @@ module Sinatra
       klass.set :app_file, klass.caller_files.first.expand_path unless klass.app_file?
       klass.extend ClassMethods
       klass.send :include, InstanceMethods
-      klass.set :haml, :format => :html5, :escape_html => true
-      klass.use Rack::Session::Cookie
-      klass.enable :sessions
+      # HACK: Remove when issue is fixed
+      if defined? Rubinius
+        Rubinius::VM.reset_method_cache :register
+        Rubinius::VM.reset_method_cache :set
+      end
     end
 
     def self.set_app_file(klass)
