@@ -79,7 +79,7 @@ module Sinatra
       #     root_glob("app", "{models,views,controllers}", "*.rb") { |file| load file }
       #   end
       def root_glob(*args, &block)
-        Dir.glob(root_path(*args), &block)
+        Dir.glob(root_path(*args)).each(&block)
       end
 
       # Whether or not to start a webserver.
