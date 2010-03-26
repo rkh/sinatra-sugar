@@ -27,14 +27,14 @@ More advanced set
         set :haml, :excape_html => false
         haml # => { :format => :html5, :escape_html => false }
     
-- Allowes passing a block:
+- Allows passing a block in Sinatra 0.9, too:
 
         set(:foo) { Time.now }
 
 More advanced register
 ----------------------
 
-If an exntesion is registered twice, the registered hook will only be called once.
+If an extension is registered twice, the registered hook will only be called once.
 
 Ability to extend command line options
 --------------------------------------

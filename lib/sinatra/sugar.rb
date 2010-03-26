@@ -34,11 +34,11 @@ module Sinatra
       #     set :haml, :format => :html5, :escape_html => true
       #     set :haml, :excape_html => false
       #     haml # => { :format => :html5, :escape_html => false }
-      # - Allowes passing a block:
+      # - Allowes passing a block (for Sinatra 0.9.x):
       #     set(:foo) { Time.now }
       def set(key, value = self, &block)
         # FIXME: refactor, refactor, refactor
-        if block_given?
+        if block_given? and Sinatra::VERSION < "1.0"
           raise ArgumentError, "both a value and a block given" if value != self
           value = block
         end
