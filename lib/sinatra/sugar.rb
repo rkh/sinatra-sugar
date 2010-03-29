@@ -162,7 +162,6 @@ module Sinatra
     end
 
     def self.registered(klass)
-      klass.set :app_file, klass.caller_files.first.expand_path unless klass.app_file?
       klass.extend ClassMethods
       klass.send :include, InstanceMethods
     end
