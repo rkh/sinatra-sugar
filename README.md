@@ -41,9 +41,11 @@ Ability to extend command line options
 
 Example:
 
-    require "sinatra"
+    require "sinatra/base"
     require "sinatra/sugar"
-  
-    configure do
+    
+    class App < Sinatra::Base
+      register Sinatra::Sugar
       run_option_parser.on("-i") { puts "yes, -i is a nice option" }
+      run! if $0 == __FILE__
     end

@@ -128,7 +128,7 @@ module Sinatra
 
       # Extended #run!, offers an extandable option parser for
       # BigBand with the same standard options as the one of
-      # Sinatra#Default (see #run_option_parser).
+      # Sinatra::Base (see #run_option_parser).
       def run!(options = {})
         run_option_parser.parse!(ARGV.dup) unless ARGV.empty?
         @running = true
