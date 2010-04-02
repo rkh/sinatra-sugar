@@ -49,3 +49,20 @@ Example:
       run_option_parser.on("-i") { puts "yes, -i is a nice option" }
       run! if $0 == __FILE__
     end
+
+Exposes caller usage of Sinatra
+-------------------------------
+
+This is for extension developers only.
+If you modify some core methods, you don't want your ruby file to be mistaken for the app\_file.
+You can fix it this way:
+
+    require "sinatra/base"
+    require "sinatra/sugar"
+    module Sinatra
+      Base.ignore_caller
+      module HardcoreExtension
+        # ...
+      end
+      register HardcoreExtension
+    end
