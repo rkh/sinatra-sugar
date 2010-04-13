@@ -15,7 +15,7 @@ Check it out if you are looking for other fancy Sinatra extensions.
 Installation
 ------------
 
-    gem install sinatra-sugar --prerelease
+    gem install sinatra-sugar
 
 More advanced set
 -----------------
