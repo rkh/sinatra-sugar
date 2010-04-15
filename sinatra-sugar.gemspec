@@ -2,12 +2,12 @@ SPEC = Gem::Specification.new do |s|
 
   # Get the facts.
   s.name             = "sinatra-sugar"
-  s.version          = "0.4.0"
+  s.version          = "0.4.1"
   s.description      = "Some extensions to the sinatra default behavior (usefull for other Sintatra extensions, part of BigBand)."
 
   # BigBand depedencies
-  s.add_dependency "monkey-lib", "~> 0.4.0.0"
-  s.add_development_dependency "sinatra-test-helper", "~> 0.4.0.0"
+  s.add_dependency "monkey-lib", "~> 0.4.0"
+  s.add_development_dependency "sinatra-test-helper", "~> 0.4.0"
 
   # External dependencies
   s.add_dependency "sinatra", ">= 0.9.4" # works fine with 1.0!
