@@ -26,10 +26,6 @@ More advanced set
         set :haml, :format => :html5, :escape_html => true
         set :haml, :excape_html => false
         haml # => { :format => :html5, :escape_html => false }
-    
-- Allows passing a block in Sinatra 0.9, too:
-
-        set(:foo) { Time.now }
 
 More advanced register
 ----------------------

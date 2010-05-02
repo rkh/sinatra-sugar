@@ -37,15 +37,10 @@ module Sinatra
       # - Allowes passing a block (for Sinatra 0.9.x):
       #     set(:foo) { Time.now }
       def set(key, value = self, &block)
-        # FIXME: refactor, refactor, refactor
-        if block_given? and Sinatra::VERSION < "1.0"
-          raise ArgumentError, "both a value and a block given" if value != self
-          value = block
-        end
         symbolized = (key.to_sym if key.respond_to? :to_sym)
         old_value = (send(symbolized) if symbolized and respond_to? symbolized)
         value = old_value.merge value if value.is_a? Hash and old_value.is_a? Hash
-        super(key, value)
+        super
         # HACK: Sinatra::Base.set uses recursion and in the final step value always
         # is a Proc. Also, if value is a Proc no step ever follows. I abuse this to
         # invoke the hooks only once per set.
