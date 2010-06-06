@@ -1,8 +1,8 @@
 require File.expand_path(__FILE__ + "/../../spec_helper.rb")
 
 describe Sinatra::Sugar do
-
   before { app :Sugar }
+  it_should_behave_like 'sinatra'
 
   describe "set" do
 
