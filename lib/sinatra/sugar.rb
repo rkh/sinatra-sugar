@@ -1,5 +1,5 @@
 require "sinatra/base"
-require "monkey"
+require "monkey-lib"
 
 module Sinatra
   module Sugar
