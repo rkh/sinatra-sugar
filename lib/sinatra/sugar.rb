@@ -92,7 +92,7 @@ module Sinatra
       # The application's root directory. BigBand will guess if missing.
       def root
         return ".".expand_path unless app_file?
-        return @root if @root
+        return @root if defined?(@root) and @root
         @guessed_root ||= begin
           dir = app_file.expand_path.dirname
           if dir.basename == "lib" and not (dir / "lib").directory?
