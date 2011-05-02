@@ -25,31 +25,7 @@ module Sinatra
     end
     
     module ClassMethods
-
       attr_writer :root, :guessed_root
-
-      # More advanced set:
-      # - Adds set_#{key} and set_value hooks to set.
-      # - Merges the old value with the new one, if both are hashes:
-      #     set :haml, :format => :html5, :escape_html => true
-      #     set :haml, :excape_html => false
-      #     haml # => { :format => :html5, :escape_html => false }
-      # - Allowes passing a block (for Sinatra 0.9.x):
-      #     set(:foo) { Time.now }
-      def set(key, value = self, &block)
-        symbolized = (key.to_sym if key.respond_to? :to_sym)
-        old_value = (send(symbolized) if symbolized and respond_to? symbolized)
-        value = old_value.merge value if value.is_a? Hash and old_value.is_a? Hash
-        super
-        # HACK: Sinatra::Base.set uses recursion and in the final step value always
-        # is a Proc. Also, if value is a Proc no step ever follows. I abuse this to
-        # invoke the hooks only once per set.
-        if value.is_a? Proc
-          invoke_hook "set_#{key}", self
-          invoke_hook :set_value, self, key
-        end
-        self
-      end
 
       # More advanced register:
       # - If an exntesion is registered twice, the registered hook will only be called once.
@@ -76,64 +52,9 @@ module Sinatra
       def root_glob(*args, &block)
         Dir.glob(root_path(*args)).each(&block)
       end
-
-      # Whether or not to start a webserver.
-      def run?
-        @run ||= true
-        @run and !@running and app_file? and $0.expand_path == app_file.expand_path
-      end
-
-      # Disable automatically running this class as soon it is subclassed.
-      def inherited
-        super
-        @run = false
-      end
-
-      # The application's root directory. BigBand will guess if missing.
-      def root
-        return ".".expand_path unless app_file?
-        return @root if defined?(@root) and @root
-        @guessed_root ||= begin
-          dir = app_file.expand_path.dirname
-          if dir.basename == "lib" and not (dir / "lib").directory?
-            dir.dirname
-          else
-            dir
-          end
-        end
-      end
-
-      # Returns true if the #root is known.
-      def root?
-        !!@root || app_file?
-      end
-
-      # Option parser for #run!
-      def run_option_parser
-        @run_option_parser ||= begin
-          require 'optparse'
-          OptionParser.new do |op|
-            op.on('-x')        {       set :lock, true }
-            op.on('-e env')    { |val| set :environment, val.to_sym }
-            op.on('-s server') { |val| set :server, val }
-            op.on('-p port')   { |val| set :port, val.to_i }
-          end 
-        end
-      end
-
-      # Extended #run!, offers an extandable option parser for
-      # BigBand with the same standard options as the one of
-      # Sinatra::Base (see #run_option_parser).
-      def run!(options = {})
-        run_option_parser.parse!(ARGV.dup) unless ARGV.empty?
-        @running = true
-        super(options)
-      end
-
     end
 
     module InstanceMethods
-
       # See BigBand::BasicExtentions::ClassMethods#root_path
       def root_path(*args)
         self.class.root_path(*args)
@@ -153,7 +74,6 @@ module Sinatra
       def root?
         self.class.root
       end
-
     end
 
     def self.registered(klass)
@@ -164,10 +84,8 @@ module Sinatra
     def self.set_app_file(klass)
       klass.guessed_root = nil
     end
-
   end
-  
+
   Base.ignore_caller
   register Sugar
-  
 end

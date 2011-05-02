@@ -2,7 +2,7 @@ SPEC = Gem::Specification.new do |s|
 
   # Get the facts.
   s.name             = "sinatra-sugar"
-  s.version          = "0.5.0"
+  s.version          = "0.5.1"
   s.description      = "Some extensions to the sinatra default behavior (usefull for other Sintatra extensions, part of BigBand)."
 
   # BigBand depedencies
